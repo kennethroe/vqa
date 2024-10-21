@@ -9,4 +9,4 @@ python analyzer.py https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Sma
 mail truck
 ```
 
-
+Runs on 6GB of VRAM (tested on A2000 6GB).
