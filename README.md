@@ -1,5 +1,5 @@
 # vqa
-Light weight "Visual Question Analysis" - providing "instruct" capabilities on an image.
+Light weight "Visual Question Answering" - providing "instruct" capabilities on an image.
 
 analyzer.py demonstrates usage.
 
