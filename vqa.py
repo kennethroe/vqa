@@ -30,8 +30,11 @@ class VQA:
 
     # Gets a response for the image URL and optional prompt (uses system_prompt if not overriden here).
     def analyze(self, image_url, prompt=None):
+        # Open the image from URL. 
+        image = Image.open(requests.get(image_url, stream=True).raw)
+
         # Use visual model to get caption..
-        caption = self.__get_detailed_caption(image_url)
+        caption = self.__get_detailed_caption(image)
         
         # Analyze image using the instruct prompt (default to system_prompt).
         outcome = self.__instruct_on_caption(caption, prompt or self.system_prompt)
@@ -39,13 +42,8 @@ class VQA:
         # Return result.
         return outcome
 
-    # PRIVATE: Gets a caption for the image URL.
-    def __get_detailed_caption(self, image_url):
-        # Open image from URL.
-        image = Image.open(requests.get(image_url, stream=True).raw) 
-
-
-        # Process through model to get caption.
+    # PRIVATE: Gets a caption for the image.
+    def __get_detailed_caption(self, image):
         image_model_prompt = "<MORE_DETAILED_CAPTION>"
         inputs = image_processor(text=image_model_prompt, images=image, return_tensors="pt").to(device, torch_dtype)
         generated_ids = image_model.generate(
